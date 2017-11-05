@@ -30,7 +30,10 @@ class ThenorthfaceSpider(Spider):
         res = response.xpath("//*[@id='catalog-results']/section/header/a/@href").extract()
         for sel in res:
             if sel:
-                yield Request(sel, self.parse_category)
+                if re.match('https://www.thenorthface.com/shop/kids', sel): # jump to product if for kids
+                    yield Request(sel, self.parse_product)
+                else:
+                    yield Request(sel, self.parse_category)
 
     def parse_category(self, response):
         res = response.xpath("//*[@id='catalog-results']/section/header/a/@href").extract()
@@ -42,7 +45,7 @@ class ThenorthfaceSpider(Spider):
         res = response.xpath("//*[@id='catalog-results']/div/div[2]/div[4]/a/@href").extract()
         for sel in res:
             if sel:
-                yield Request(sel, self.parse_product_detail)
+                yield Request(sel, self.parse_product_detail)                
 
     def parse_product_detail(self, response):
         item = ThenorthfacedotcomItem()
