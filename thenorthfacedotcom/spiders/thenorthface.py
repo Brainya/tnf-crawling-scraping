@@ -45,11 +45,12 @@ class ThenorthfaceSpider(Spider):
 
     def parse_product_detail(self, response):
         item = ThenorthfacedotcomItem()
-        # item['category'] = ''
-        # item['name'] = response.xpath("//*[@id='product-info']/h1").extract_first()
-        # item['price'] = response.xpath("//*[@id='product-info']/div[1]/span[1]").extract_first()
-        # item['image'] = ''
-        # item['url'] = response.url()
-        # item['size'] = response.xpath("div[{i}]/div[1]/figure/a").extract()
-        item['description'] = response.xpath("//*[@id='container-4']/div[1]/section/div[1]/div/div").extract_first()
+        item['name'] = response.xpath("//div[@id='product-info']/h1/text()").extract_first()
+        item['category'] = response.xpath("//nav[@id='pdp-breadcrumb']/ul/li[last()]/a/text()").extract_first()
+        price = response.xpath("//section[@id='container-4']/div[@itemtype='http://schema.org/Product']/span[last()]/meta[1]/@content").extract_first()
+        item['price'] = '$' + price
+        image = response.xpath("//form[@id='product-attr-form']/section[1]/div[2]/div/label[1]/img/@src").extract_first()
+        item['image'] = 'https:' + re.sub(r'\?\$([a-zA-Z0-9]*)\$', '', image) # full size + add 'https:'
+        item['description'] = response.xpath("//div[@class='desc-container pdp-details-desc-container']/text()").extract_first().strip()
+        item['url'] = response.url
         yield item
