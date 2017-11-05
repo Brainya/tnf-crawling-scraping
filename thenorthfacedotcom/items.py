@@ -9,10 +9,9 @@ import scrapy
 
 
 class ThenorthfacedotcomItem(scrapy.Item):
-    category = scrapy.Field()
     name = scrapy.Field()
+    category = scrapy.Field()
     price = scrapy.Field()
     image = scrapy.Field()
-    url = scrapy.Field()
-    size = scrapy.Field()
     description = scrapy.Field()
+    url = scrapy.Field()
