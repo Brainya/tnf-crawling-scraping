@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import re
 
 from scrapy import Spider
 from scrapy.http import Request
