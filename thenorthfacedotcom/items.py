@@ -5,13 +5,12 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-import scrapy
+from scrapy import Field, Item
 
-
-class ThenorthfacedotcomItem(scrapy.Item):
-    name = scrapy.Field()
-    category = scrapy.Field()
-    price = scrapy.Field()
-    image = scrapy.Field()
-    description = scrapy.Field()
-    url = scrapy.Field()
+class ThenorthfacedotcomItem(Item):
+    name = Field()
+    category = Field()
+    price = Field()
+    image = Field()
+    description = Field()
+    url = Field()
